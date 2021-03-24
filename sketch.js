@@ -4,21 +4,26 @@ const Bodies = Matter.Bodies;
 var drops = []
 var man1,man;
 var maxDrops = 100;
+var thunder1,thunder2,thunder3,thunder4;
 
 function preload(){
     
 //man1 = loadImage("sprites/walking_1.png");
+thunder1 = loadImage("sprites/1.png");
+thunder2 = loadImage("sprites/2.png");
+thunder3 = loadImage("sprites/3.png");
+thunder4 = loadImage("sprites/4.png");
 
 }
 
 function setup(){
    createCanvas(650,1200);
-   engine = Engine.create;
+   engine = Engine.create();
    world = engine.world;
 
-   for (var i=0; i<maxDrops; i++){
-    drops.push(new Drop(random(0,650), random(0,1200)));
-   }
+//    for (var i=0; i<maxDrops; i++){
+//     drops.push(new Drop(random(0,650), random(0,1200)));
+//    }
 }
 
 function draw(){
@@ -27,9 +32,9 @@ function draw(){
     light();
     drawSprites();
 
-    for (var i=0; i<maxDrops; i++){
-         drops[i].display();
-    }
+    // for (var i=0; i<maxDrops; i++){
+    //      drops[i].display();
+    // }
 }   
 
 function light(){
@@ -39,17 +44,21 @@ if(frameCount%80 === 0){
    lightFrame = frameCount;
    thunder = createSprite(random(10,370),random(10,30),10,10);
    switch(rand){
-       case 1:thunder.addImage("sprites/1.png")
+       case 1:thunder.addImage(thunder1)
        break;
-       case 2:thunder.addImage("sprites/2.png")
+       case 2:thunder.addImage(thunder2)
        break;
-       case 3:thunder.addImage("sprites/3.png")
+       case 3:thunder.addImage(thunder3)
        break;
-       case 4:thunder.addImage("sprites/4.png")
+       case 4:thunder.addImage(thunder4)
        break;
        default: break;
    }
    thunder.scale = random(0.3,0.6);
+
+   if(lightFrame+10 === frameCount && thunder){
+      thunder.destroy();
+   }
 }
 }
 
